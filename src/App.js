@@ -1,14 +1,12 @@
-import logo from "./logo.svg";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function App() {
-  return (
-    <div className="container mx-auto border">
-      <div className="">
-        <h1 className="text-red-500">Member Login</h1>
-      </div>
-    </div>
-  );
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate("/login");
+  }, []);
+  return <div>Hi</div>;
 }
 
 export default App;
