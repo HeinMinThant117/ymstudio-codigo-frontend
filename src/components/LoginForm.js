@@ -2,17 +2,41 @@ import React, { useState } from "react";
 import { ReactDOM } from "react";
 import axios from "axios";
 import { data } from "autoprefixer";
+import authService from "../services/auth";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState([]);
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:8000/api/login", { email, password })
-      .then((response) => console.log(response.data))
-      .catch((error) => console.log(error.response));
+    authService
+      .login({ email, password })
+      .then((response) => {
+        if (response.status === 200) {
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        if (error.response.status === 401) {
+          setErrors(["Your email or password is incorrect"]);
+        } else if (error.response.status === 422) {
+          const validationErrorObj = error.response.data.errors;
+          const validatedErrors = [];
+
+          Object.keys(validationErrorObj).forEach((error) =>
+            validationErrorObj[error].map((error) =>
+              validatedErrors.push(error)
+            )
+          );
+
+          setErrors(validatedErrors);
+        }
+      });
   };
 
   const handleEmailChange = (e) => {
@@ -35,16 +59,23 @@ const LoginForm = () => {
           className="border-b border-gray-300 py-2 px-1 mb-4"
           onChange={handleEmailChange}
           placeholder="Email"
+          required
         />
         <input
           type="password"
           className="border-b border-gray-300 py-2 px-1 mb-4"
           onChange={handlePasswordChange}
           placeholder="Password"
+          required
         />
-        <button className="bg-blue-500 text-white font-semibold p-2 my-8 w-1/2 mx-auto">
+        <button className="bg-blue-500 text-white font-semibold p-2 my-4 w-1/2 mx-auto">
           Login
         </button>
+        {errors.map((error, index) => (
+          <p key={index} className="text-red-500 text-sm bg-red-200 mt-2 p-2">
+            {error}
+          </p>
+        ))}
       </form>
     </div>
   );
