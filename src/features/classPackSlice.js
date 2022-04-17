@@ -96,6 +96,7 @@ export const classPackSlice = createSlice({
       state.ordered.price = priceObj;
       state.ordered.status = "preview";
       state.ordered.orderID = null;
+      state.ordered.promocode.message = null;
     },
     [orderClassPack.fulfilled]: (state, action) => {
       const priceObj = {

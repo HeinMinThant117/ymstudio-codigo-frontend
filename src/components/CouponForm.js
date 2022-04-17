@@ -6,7 +6,9 @@ const CouponForm = () => {
   const [promocode, setPromocode] = useState();
 
   const dispatch = useDispatch();
-  const { message } = useSelector((state) => state.classPack.ordered.promocode);
+  const { message } = useSelector(
+    (state) => state.classPack.ordered.promocode
+  );
 
   const toInputUppercase = (e) => {
     e.target.value = ("" + e.target.value).toUpperCase();
