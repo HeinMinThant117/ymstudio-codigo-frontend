@@ -16,7 +16,7 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<HomePage />} />
-          <Route path="/order/:id" element={<OrderPage />} />
+          <Route path="/order/:packId" element={<OrderPage />} />
         </Route>
 
         <Route path="/login" element={<LoginForm />} />

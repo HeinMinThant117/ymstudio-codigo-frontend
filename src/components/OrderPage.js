@@ -1,12 +1,14 @@
 import React from "react";
 import PriceRow from "../molecules/PriceRow";
 import classPackIcon from "../assets/images/eight.png";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const OrderPage = () => {
+  const { packId } = useParams();
+
   return (
     <div className="container mx-auto">
-      <h1 className="text-xl mb-4">CLASS PACK PURCHASE</h1>
+      <h1 className="text-xl mb-4 text-blue-500">CLASS PACK PURCHASE</h1>
       <div className="border border-blue-500 bg-white">
         <div className="p-6">
           <h3 className="font-semibold text-lg mb-4">You have selected:</h3>
@@ -45,9 +47,14 @@ const OrderPage = () => {
         <span className="text-blue-500">Terms & Conditions</span> before
         purchasing your YM Class or Class Pack
       </p>
-      <Link to="/">
-        <p className="text-sm text-blue-500">Back</p>
-      </Link>
+      <div className="flex justify-between">
+        <Link to="/">
+          <p className="text-sm text-blue-500">Back</p>
+        </Link>
+        <button className="bg-blue-500 text-sm text-white font-semibold px-10 py-2 rounded-2xl">
+          Purchase
+        </button>
+      </div>
     </div>
   );
 };
