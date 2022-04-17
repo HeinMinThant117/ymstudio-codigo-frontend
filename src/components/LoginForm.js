@@ -1,8 +1,4 @@
 import React, { useState } from "react";
-import { ReactDOM } from "react";
-import axios from "axios";
-import { data } from "autoprefixer";
-import authService from "../services/auth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../features/authSlice";
