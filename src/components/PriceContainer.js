@@ -6,12 +6,15 @@ const PriceContainer = () => {
   const { price } = useSelector((state) => state.classPack.ordered);
   return (
     <div className="p-4">
-      <PriceRow label="Subtotal" value={price.subtotal} />
-      <PriceRow label="GST" value={price.gst} />
+      <PriceRow label="Subtotal" value={"$" + price.subtotal} />
+      <PriceRow label="GST" value={"$" + price.gst} />
       {price.discount > 0 && (
-        <PriceRow label="Discount" value={price.discount} />
+        <PriceRow label="Discount" value={"-$" + price.discount} />
       )}
-      <PriceRow label="Grand Total" value={price.grandTotal} />
+      <PriceRow
+        label="Grand Total"
+        value={"$" + (price.grandTotal - price.discount).toFixed(2)}
+      />
     </div>
   );
 };

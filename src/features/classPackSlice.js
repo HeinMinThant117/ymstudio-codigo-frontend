@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import classPackService from "../services/classPack";
 import orderService from "../services/order";
+import promocodeService from "../services/promocode";
 
 export const getClassPacks = createAsyncThunk(
   "classPackSlice/getClassPacks",
@@ -36,6 +37,23 @@ export const getOrderedClassPack = createAsyncThunk(
   }
 );
 
+export const checkPromocode = createAsyncThunk(
+  "classPackSlice/checkPromocode",
+  async (promocode, { rejectWithValue }) => {
+    try {
+      const token = JSON.parse(sessionStorage.getItem("user")).token;
+      const response = await promocodeService.verify(token, {
+        promo_code: promocode,
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue({
+        message: error.response.data.message,
+      });
+    }
+  }
+);
+
 export const classPackSlice = createSlice({
   name: "classPack",
   initialState: {
@@ -47,7 +65,10 @@ export const classPackSlice = createSlice({
       status: null,
       data: null,
       price: null,
-      promoCode: null,
+      promocode: {
+        code: null,
+        message: null,
+      },
       orderID: null,
     },
   },
@@ -110,6 +131,20 @@ export const classPackSlice = createSlice({
         };
         state.ordered.price = priceObj;
       }
+    },
+    [checkPromocode.fulfilled]: (state, action) => {
+      const discountPrice = (
+        (state.ordered.price.subtotal * action.payload.discount) /
+        100
+      ).toFixed(2);
+
+      state.ordered.promocode.message = action.payload.message;
+      state.ordered.promocode.code = action.payload.code;
+      state.ordered.price.discount = discountPrice;
+    },
+    [checkPromocode.rejected]: (state, action) => {
+      state.ordered.promocode.message = action.payload.message;
+      state.ordered.price.discount = 0;
     },
   },
 });

@@ -10,7 +10,9 @@ const OrderPage = () => {
   const { packId } = useParams();
   const dispatch = useDispatch();
 
-  const { status, orderID } = useSelector((state) => state.classPack.ordered);
+  const { status, orderID, promocode } = useSelector(
+    (state) => state.classPack.ordered
+  );
 
   useEffect(() => {
     dispatch(getClassPack(packId));
@@ -21,7 +23,7 @@ const OrderPage = () => {
     return <Navigate to={`/orders/${orderID}`} />;
 
   const handleSubmitOrder = () => {
-    dispatch(orderClassPack({ pack_id: packId, qty: 1 }));
+    dispatch(orderClassPack({ pack_id: packId, qty: 1, promocode }));
   };
 
   return (
