@@ -6,7 +6,7 @@ import ClassPackCard from "./ClassPackCard";
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const classPacks = useSelector((state) => state.classPack.data);
+  const classPacks = useSelector((state) => state.classPack.all.data);
 
   useEffect(() => {
     dispatch(getClassPacks());

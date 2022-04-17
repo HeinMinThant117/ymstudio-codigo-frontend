@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PriceRow from "../molecules/PriceRow";
 import classPackIcon from "../assets/images/eight.png";
 import { Link, useParams } from "react-router-dom";
+import { getOrderedClassPack } from "../features/classPackSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const OrderPage = () => {
   const { packId } = useParams();
+  const dispatch = useDispatch();
+
+  const { status: orderedPackStatus, data: orderedPackData } = useSelector(
+    (state) => state.classPack.ordered
+  );
+
+  useEffect(() => {
+    dispatch(getOrderedClassPack(packId));
+  }, []);
 
   return (
     <div className="container mx-auto">

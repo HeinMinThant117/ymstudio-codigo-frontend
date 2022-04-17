@@ -6,4 +6,9 @@ const fetchAll = async () => {
   return response;
 };
 
-export default { fetchAll };
+const fetchOne = async (id) => {
+  const response = axios.get(`${baseUrl}/${id}`);
+  return response;
+};
+
+export default { fetchAll, fetchOne };

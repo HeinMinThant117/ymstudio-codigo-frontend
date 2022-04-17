@@ -9,27 +9,32 @@ export const getClassPacks = createAsyncThunk(
   }
 );
 
+export const getOrderedClassPack = createAsyncThunk(
+  "classPackSlice/getOrderedClassPack",
+  async (id) => {
+    const response = await classPackService.fetchOne(id);
+    return response.data;
+  }
+);
+
 export const classPackSlice = createSlice({
   name: "classPack",
   initialState: {
-    status: null,
-    data: [],
-  },
-  reducers: {
-    setClassPacks: (state, action) => {
-      state.data = action.payload;
+    all: {
+      status: null,
+      data: [],
+    },
+    ordered: {
+      status: null,
+      data: null,
     },
   },
   extraReducers: {
-    [getClassPacks.pending]: (state, action) => {
-      state.status = "pending";
-    },
     [getClassPacks.fulfilled]: (state, action) => {
-      state.data = action.payload.data;
-      state.status = "fulfilled";
+      state.all.data = action.payload.data;
     },
-    [getClassPacks.rejected]: (state, action) => {
-      state.status = "rejected";
+    [getOrderedClassPack.fulfilled]: (state, action) => {
+      state.ordered.data = action.payload.data;
     },
   },
 });
