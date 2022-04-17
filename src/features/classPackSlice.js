@@ -35,6 +35,7 @@ export const classPackSlice = createSlice({
     },
     [getOrderedClassPack.fulfilled]: (state, action) => {
       state.ordered.data = action.payload.data;
+      state.ordered.status = "fulfilled";
     },
   },
 });
