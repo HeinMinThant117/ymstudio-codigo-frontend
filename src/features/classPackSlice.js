@@ -34,6 +34,7 @@ export const classPackSlice = createSlice({
   extraReducers: {
     [getClassPacks.fulfilled]: (state, action) => {
       state.all.data = action.payload.data;
+      state.all.status = "fulfilled";
     },
     [getOrderedClassPack.fulfilled]: (state, action) => {
       state.ordered.data = action.payload.data;
