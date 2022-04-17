@@ -11,6 +11,7 @@ import NavBar from "./components/NavBar";
 import HomePage from "./components/HomePage";
 import OrderConfirmPage from "./components/OrderConfirmPage";
 import RegisterForm from "./components/RegisterForm";
+import AboutPage from "./components/AboutPage";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -20,6 +21,7 @@ ReactDOM.render(
           <Route index element={<HomePage />} />
           <Route path="/class-packs/:packId" element={<OrderPage />} />
           <Route path="/orders/:orderId" element={<OrderConfirmPage />} />
+          <Route path="/about" element={<AboutPage />} />
         </Route>
 
         <Route path="/login" element={<LoginForm />} />
