@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import PriceRow from "../molecules/PriceRow";
 import { Link, useParams } from "react-router-dom";
 import { getOrderedClassPack } from "../features/classPackSlice";
 import { useDispatch, useSelector } from "react-redux";
 import OrderedClassPackInfo from "../molecules/OrderedClassPackInfo";
 import CouponForm from "./CouponForm";
+import PriceContainer from "./PriceContainer";
 
 const OrderPage = () => {
   const { packId } = useParams();
@@ -27,12 +27,7 @@ const OrderPage = () => {
           <CouponForm />
         </div>
         <div className="border my-2"></div>
-        <div className="p-4">
-          <PriceRow label="Subtotal" value={390.24} />
-          <PriceRow label="GST" value={390.24} />
-          <PriceRow label="Discount" value={390.24} />
-          <PriceRow label="Grand Total" value={390.24} />
-        </div>
+        <PriceContainer />
       </div>
       <p className="text-sm my-4">
         Please read all{" "}

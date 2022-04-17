@@ -27,7 +27,7 @@ export const classPackSlice = createSlice({
     ordered: {
       status: null,
       data: null,
-      priceInfo: null,
+      price: null,
       promoCode: null,
     },
   },
@@ -37,7 +37,17 @@ export const classPackSlice = createSlice({
       state.all.status = "fulfilled";
     },
     [getOrderedClassPack.fulfilled]: (state, action) => {
+      const packPrice = action.payload.data.pack_price.toFixed(2);
+      const gst = ((packPrice * 7) / 100).toFixed(2);
+      const priceObj = {
+        subtotal: (packPrice - gst).toFixed(2),
+        gst,
+        discount: 0,
+        grandTotal: packPrice,
+      };
+
       state.ordered.data = action.payload.data;
+      state.ordered.price = priceObj;
       state.ordered.status = "fulfilled";
     },
   },
