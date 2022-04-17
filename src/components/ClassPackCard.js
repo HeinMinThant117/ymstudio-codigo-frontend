@@ -1,10 +1,13 @@
 import classPackIcon from "../assets/images/eight.png";
-import React from 'react'
+import React from "react";
 import { Link } from "react-router-dom";
 
 const ClassPackCard = ({ classPack }) => {
   return (
-    <Link to="/order" className=" flex flex-col text-center items-center border p-2 bg-white">
+    <Link
+      to={`/order/${classPack.pack_id}`}
+      className=" flex flex-col text-center items-center border p-2 bg-white"
+    >
       {classPack.tag_name && (
         <p className=" self-start mt-2 ml-2 bg-black py-1 px-4 text-white inline-block text-sm">
           {classPack.tag_name}
