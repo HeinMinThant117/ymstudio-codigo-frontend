@@ -24,6 +24,7 @@ const OrderPage = () => {
       <div className="border border-blue-500 bg-white">
         <div className="p-6">
           <OrderedClassPackInfo />
+          <CouponForm />
         </div>
         <div className="border my-2"></div>
         <div className="p-4">

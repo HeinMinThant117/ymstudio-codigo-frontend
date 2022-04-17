@@ -27,6 +27,8 @@ export const classPackSlice = createSlice({
     ordered: {
       status: null,
       data: null,
+      priceInfo: null,
+      promoCode: null,
     },
   },
   extraReducers: {
