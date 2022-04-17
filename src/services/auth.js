@@ -6,4 +6,14 @@ const login = async (data) => {
   return response;
 };
 
-export default { login };
+const logout = async (token) => {
+  const response = await axios.post(
+    baseUrl + "/logout",
+    {},
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+
+  return response;
+};
+
+export default { login, logout };

@@ -1,12 +1,12 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Outlet } from "react-router-dom";
-import ClassPackCard from "./components/ClassPackCard";
-import HomePage from "./components/HomePage";
+import { useSelector } from "react-redux";
+import { Navigate, Outlet } from "react-router-dom";
 import NavBar from "./components/NavBar";
-import { getClassPacks } from "./features/classPackSlice";
 
 function App() {
+  const user = useSelector((state) => state.auth.user);
+
+  if (user === null) return <Navigate to="/login" />;
+
   return (
     <div className="w-screen h-screen bg-gray-100">
       <NavBar />

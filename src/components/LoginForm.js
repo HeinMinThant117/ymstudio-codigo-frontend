@@ -1,45 +1,22 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../features/authSlice";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const auth = useSelector((state) => state.auth);
-  console.log(auth);
 
-  if (auth.token) navigate("/");
+  const dispatch = useDispatch();
+
+  const errors = useSelector((state) => state.auth.login.errors);
+  const user = useSelector((state) => state.auth.user);
+
+  if (user !== null) return <Navigate to="/" />;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(loginUser({ email, password }));
-    // authService
-    //   .login({ email, password })
-    //   .then((response) => {
-    //     if (response.status === 200) {
-    //       navigate("/");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     if (error.response.status === 401) {
-    //       setErrors(["Your email or password is incorrect"]);
-    //     } else if (error.response.status === 422) {
-    //       const validationErrorObj = error.response.data.errors;
-    //       const validatedErrors = [];
-
-    //       Object.keys(validationErrorObj).forEach((error) =>
-    //         validationErrorObj[error].map((error) =>
-    //           validatedErrors.push(error)
-    //         )
-    //       );
-
-    //       setErrors(validatedErrors);
-    //     }
-    //   });
   };
 
   const handleEmailChange = (e) => {
@@ -72,7 +49,7 @@ const LoginForm = () => {
         <button className="bg-blue-500 text-white font-semibold p-2 my-4 w-1/2 mx-auto">
           Login
         </button>
-        {auth.errors.map((error, index) => (
+        {errors.map((error, index) => (
           <p key={index} className="text-red-500 text-sm bg-red-200 mt-2 p-2">
             {error}
           </p>
