@@ -10,6 +10,7 @@ import OrderPage from "./components/OrderPage";
 import NavBar from "./components/NavBar";
 import HomePage from "./components/HomePage";
 import OrderConfirmPage from "./components/OrderConfirmPage";
+import RegisterForm from "./components/RegisterForm";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -22,6 +23,7 @@ ReactDOM.render(
         </Route>
 
         <Route path="/login" element={<LoginForm />} />
+        <Route path="/register" element={<RegisterForm />} />
       </Routes>
     </BrowserRouter>
   </Provider>,

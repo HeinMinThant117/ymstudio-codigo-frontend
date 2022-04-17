@@ -6,6 +6,11 @@ const login = async (data) => {
   return response;
 };
 
+const register = async (data) => {
+  const response = await axios.post(baseUrl + "/register", data);
+  return response;
+};
+
 const logout = async (token) => {
   const response = await axios.post(
     baseUrl + "/logout",
@@ -16,4 +21,4 @@ const logout = async (token) => {
   return response;
 };
 
-export default { login, logout };
+export default { login, register, logout };
