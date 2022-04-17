@@ -23,7 +23,9 @@ const OrderPage = () => {
     return <Navigate to={`/orders/${orderID}`} />;
 
   const handleSubmitOrder = () => {
-    dispatch(orderClassPack({ pack_id: packId, qty: 1, promocode }));
+    dispatch(
+      orderClassPack({ pack_id: packId, qty: 1, promocode: promocode.code })
+    );
   };
 
   return (
