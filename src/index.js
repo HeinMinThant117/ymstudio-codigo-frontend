@@ -9,6 +9,7 @@ import LoginForm from "./components/LoginForm";
 import OrderPage from "./components/OrderPage";
 import NavBar from "./components/NavBar";
 import HomePage from "./components/HomePage";
+import OrderConfirmPage from "./components/OrderConfirmPage";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -16,7 +17,8 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<HomePage />} />
-          <Route path="/order/:packId" element={<OrderPage />} />
+          <Route path="/class-packs/:packId" element={<OrderPage />} />
+          <Route path="/orders/:orderId" element={<OrderConfirmPage />} />
         </Route>
 
         <Route path="/login" element={<LoginForm />} />

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import { getOrderedClassPack } from "../features/classPackSlice";
+import { Link, Navigate, useParams } from "react-router-dom";
+import { getClassPack, orderClassPack } from "../features/classPackSlice";
 import { useDispatch, useSelector } from "react-redux";
 import OrderedClassPackInfo from "../molecules/OrderedClassPackInfo";
 import CouponForm from "./CouponForm";
@@ -10,13 +10,19 @@ const OrderPage = () => {
   const { packId } = useParams();
   const dispatch = useDispatch();
 
-  const { status } = useSelector((state) => state.classPack.ordered);
+  const { status, orderID } = useSelector((state) => state.classPack.ordered);
 
   useEffect(() => {
-    dispatch(getOrderedClassPack(packId));
+    dispatch(getClassPack(packId));
   }, []);
 
   if (status === null) return null;
+  if (status === "confirmed" && orderID)
+    return <Navigate to={`/orders/${orderID}`} />;
+
+  const handleSubmitOrder = () => {
+    dispatch(orderClassPack({ pack_id: packId, qty: 1 }));
+  };
 
   return (
     <div className="container mx-auto">
@@ -38,7 +44,10 @@ const OrderPage = () => {
         <Link to="/">
           <p className="text-sm text-blue-500">Back</p>
         </Link>
-        <button className="bg-blue-500 text-sm text-white font-semibold px-10 py-2 rounded-2xl">
+        <button
+          className="bg-blue-500 text-sm text-white font-semibold px-10 py-2 rounded-2xl"
+          onClick={handleSubmitOrder}
+        >
           Purchase
         </button>
       </div>

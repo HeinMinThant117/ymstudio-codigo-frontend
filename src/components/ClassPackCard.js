@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const ClassPackCard = ({ classPack }) => {
   return (
     <Link
-      to={`/order/${classPack.pack_id}`}
+      to={`/class-packs/${classPack.pack_id}`}
       className=" flex flex-col text-center items-center border p-2 bg-white"
     >
       {classPack.tag_name && (
